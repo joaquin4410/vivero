@@ -1,0 +1,23 @@
+﻿@model vivero.Models.Producto
+<link rel="stylesheet" href="/css/Productos/Details3.css">
+<div class="container mt-5">
+    <h1 class="product-title">Detalles de la Planta: @Model.Nombre</h1>
+    <div class="row">
+        <!-- Imagen de la planta -->
+        <div class="col-md-6 text-center">
+            <img src="@Model.Foto" alt="@Model.Nombre" class="img-fluid product-image" />
+        </div>
+        <!-- Información de la planta -->
+        <div class="col-md-6">
+            <div class="product-details">
+                <p><strong>Descripción:</strong> @Model.Descripcion</p>
+                <p><strong>Cantidad Comprada:</strong> @ViewBag.CantidadComprada</p>
+                <p><strong>Cantidad Restante:</strong> @ViewBag.CantidadRestante</p>
+                <p><strong>Proveedor:</strong> @Model.Proveedor?.Nombre</p>
+                <p><strong>Precio Compra:</strong> @Model.Proveedor?.PrecioCompra.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+                <p><strong>Precio Venta:</strong> @Model.Precio.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+            </div>
+        </div>
+    </div>
+</div>
+<a asp-action="Index" class="btn-volver">Volver</a>

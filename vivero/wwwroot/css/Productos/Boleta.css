@@ -1,0 +1,134 @@
+﻿/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Boleta Container */
+.boleta-container {
+    width: 60%;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.boleta-header {
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+    .boleta-header h1 {
+        font-size: 20px;
+        margin: 0;
+        color: #2a5934;
+    }
+
+.boleta-info {
+    margin-bottom: 20px;
+}
+
+.boleta-details {
+    margin-bottom: 20px;
+}
+
+.details-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+    .details-table td {
+        padding: 8px;
+        vertical-align: top;
+        font-size: 14px;
+    }
+
+    .details-table tr:nth-child(odd) {
+        background-color: #f9f9f9;
+    }
+
+/* QR Section */
+.qr-section {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.qr-small {
+    max-width: 60px;
+    margin: 10px auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+/* Footer */
+.boleta-footer {
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    margin-top: 15px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+/* Buttons */
+.boleta-actions {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 12px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    text-align: center;
+    margin: 5px;
+}
+
+.btn-primary {
+    background-color: #4caf50;
+    color: white;
+}
+
+    .btn-primary:hover {
+        background-color: #3e8c41;
+    }
+
+.btn-volver {
+    background-color: #ff6b6b;
+    color: white;
+}
+
+    .btn-volver:hover {
+        background-color: #e05252;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .boleta-container {
+        width: 95%;
+    }
+
+    .details-table td {
+        font-size: 12px;
+    }
+
+    .qr-small {
+        max-width: 50px;
+    }
+
+    .btn {
+        font-size: 11px;
+    }
+}

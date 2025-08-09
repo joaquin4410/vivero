@@ -1,0 +1,94 @@
+﻿body {
+    margin: 0;
+    overflow-x: hidden; /* Evita el desplazamiento horizontal */
+    transition: margin-left 0.3s ease; /* Transición suave al desplazarse el contenido */
+}
+
+.menu-toggle {
+    background: none;
+    color: black;
+    background: none;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+}
+
+.menu {
+    width: 220px;
+    background-color: #fafbf5;
+    border-right: 1px solid #ddd;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: -220px; /* Inicialmente oculto */
+    overflow-y: auto;
+    transition: left 0.3s ease; /* Transición suave para el menú */
+    z-index: 1000;
+}
+
+    .menu.open {
+        left: 0; /* Muestra el menú */
+    }
+
+.menu-items {
+    padding: 60px 15px 15px;
+}
+
+.menu-description {
+    font-family: 'Montserrat Light', sans-serif;
+    color: #3f6f7b;
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 1px;
+    font-weight: bold;
+}
+
+.menu-item {
+    display: block;
+    padding: 6px 9px;
+    text-decoration: none;
+    color: #3f6f7b;
+    border-bottom: 1px solid #eee;
+    font-size: 0.75em;
+    font-family: 'Montserrat Light', sans-serif;
+    transition: background-color 0.2s ease;
+}
+.menu-toggle:hover {
+    background: none; /* Sin cambios de fondo al pasar el cursor */
+}
+
+    .menu-item:hover {
+        background-color: #f9f9f9;
+    }
+
+.btn-logout {
+    margin: 15px;
+    padding: 6px;
+    background-color: #888;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: calc(100% - 40px);
+    text-align: center;
+    font-size: 0.80em;
+}
+
+    .btn-logout:hover {
+        background-color: #666;
+    }
+.content {
+    margin-left: 0; /* Inicialmente ocupa todo el ancho */
+    transition: margin-left 0.3s ease; /* Transición suave */
+    position: relative; /* Asegura que el contenido se mantenga en su lugar */
+    z-index: 1; /* Debajo del menú */
+}
+
+.menu.open ~ .content {
+    margin-left: 220px; /* Desplaza el contenido al abrir el menú */
+}

@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Resultado de la Cotización";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header bg-gradient-success text-white text-center">
+            <h2>Resultado de la Cotización</h2>
+            <p class="mb-0">Detalles de los productos seleccionados y el cálculo total.</p>
+        </div>
+        <div class="card-body">
+            @if (ViewBag.Cotizacion == null || !((List<vivero.Models.DetalleCotizacion>)ViewBag.Cotizacion).Any())
+            {
+                <div class="alert alert-danger text-center">
+                    <strong>No hay datos disponibles para mostrar la cotización.</strong>
+                </div>
+            }
+            else
+            {
+                <table class="table table-bordered table-hover mt-3">
+                    <thead class="table-light">
+                        <tr class="text-center">
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Precio Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in (List<vivero.Models.DetalleCotizacion>)ViewBag.Cotizacion)
+                        {
+                            <tr>
+                                <td>@item.Nombre</td>
+                                <td class="text-center">@item.Cantidad</td>
+                                <td class="text-end">@item.PrecioUnitario.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</td>
+                                <td class="text-end">@item.PrecioTotal.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <div class="mt-4">
+                    <p class="text-end">
+                        <strong>Total Neto:</strong> @ViewBag.TotalNeto.ToString("C0", new System.Globalization.CultureInfo("es-CL"))
+                    </p>
+                    <p class="text-end">
+                        <strong>IVA (19%):</strong> @ViewBag.Iva.ToString("C0", new System.Globalization.CultureInfo("es-CL"))
+                    </p>
+                    <p class="text-end">
+                        <strong>Total con IVA:</strong> @ViewBag.TotalConIva.ToString("C0", new System.Globalization.CultureInfo("es-CL"))
+                    </p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

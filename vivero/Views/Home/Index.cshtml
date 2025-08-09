@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario NCJ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Grand+Cru+S&family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/Home/Index.css" asp-append-version="true" />
+</head>
+<body>
+
+    <!--NAV-->
+<nav class="navbar">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand">
+            <img src="/im/nuestrologo.jpg" alt="logo">
+        </a>
+
+        <!-- Botón: Ver Productos Disponibles -->
+        <div class="ms-auto me-2">
+            <a href="@Url.Action("ProductosDisponibles", "Productos")" class="nav-btn">
+                Ver Productos Disponibles
+            </a>
+        </div>
+
+        <!-- Icono de Inicio de Sesión -->
+        <div>
+            <a class="nav-link" asp-controller="Auth" asp-action="Login">
+                <img src="~/im/logonav.jpg" alt="user icon">
+            </a>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+
+    <!--TÍTULO-->
+    <div class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>NCJ</h1>
+            <p>            GESTIÓN DE INVENTARIOS             </p>
+        </div>
+    </div>
+
+
+
+
+    <!-- SECCIÓN DE EXPLICACIÓN -->
+    <section class="explicacion-seccion">
+        <h2>¿Por qué Elegir Nuestra Plataforma?</h2>
+        <p class="intro-text">Optimiza y controla tu inventario con tecnología intuitiva y profesional.</p>
+
+        <div class="explicacion-container">
+            <!-- Tarjeta 1 -->
+            <div class="explicacion-item">
+                <div class="icon-box">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Seguridad</h3>
+                <p>Inicia sesión de forma segura y accede a tu información desde cualquier lugar.</p>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="explicacion-item">
+                <div class="icon-box">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Dashboard Interactivo</h3>
+                <p>Analiza métricas clave, ventas y stock con una interfaz clara y sencilla.</p>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="explicacion-item">
+                <div class="icon-box">
+                    <i class="fas fa-box"></i>
+                </div>
+                <h3>Gestión de Productos</h3>
+                <p>Administra fácilmente tu catálogo, stock y promociones con herramientas avanzadas.</p>
+            </div>
+
+            <!-- Tarjeta 4 -->
+            <div class="explicacion-item">
+                <div class="icon-box">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <h3>Menú Intuitivo</h3>
+                <p>Accede rápidamente a todas las funcionalidades desde un menú organizado y moderno.</p>
+            </div>
+
+            <!-- Tarjeta 5 -->
+            <div class="explicacion-item">
+                <div class="icon-box">
+                    <i class="fas fa-store"></i>
+                </div>
+                <h3>Catálogo Dinámico</h3>
+                <p>Consulta precios, stock y características con visualización profesional y actualizada.</p>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html> 

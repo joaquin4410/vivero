@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Iniciar Sesión</title>
+
+    <link rel="stylesheet" href="~/css/Auth/Login.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="login-container">
+        <img src="/im/logologin.jpg" alt="Logo">
+        <form asp-action="Login" asp-controller="Auth" method="post">
+            <h1>Iniciar Sesión</h1>
+            <!-- Campo oculto para redirección -->
+            <input type="hidden" name="redirectProductos" value="@ViewBag.RedirectProductos" />
+
+            <input type="email" name="EmailForm" placeholder="Email" required />
+            <input type="password" name="pass" placeholder="Contraseña" required />
+            <div>
+                <button type="submit" class="btn btn-primary">Ingresar</button>
+                <a href="/" class="btn btn-danger">Volver</a>
+            </div>
+            <div class="forgot-password">
+                <a asp-action="ForgotPassword" asp-controller="Auth">¿Olvidaste tu contraseña?</a>
+            </div>
+        </form>
+
+        <div class="register-section">
+            <p>¿No tienes una cuenta? <a asp-action="RegisterClient" asp-controller="Auth">Regístrate aquí</a></p>
+        </div>
+    </div>
+</body>
+</html>

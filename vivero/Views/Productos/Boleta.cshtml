@@ -1,0 +1,68 @@
+﻿@model vivero.Models.Venta
+
+<link rel="stylesheet" href="/css/Productos/Boleta.css">
+
+<div class="boleta-container">
+    <div class="boleta-header">
+        <h1>Vivero NCJ</h1>
+        <p>RUT: 76.543.210-9</p>
+        <p>Dirección: Av. Los Jardines 123, Santiago</p>
+        <p>Teléfono: +56 9 1234 5678</p>
+    </div>
+
+    <div class="boleta-info">
+        <p><strong>Fecha de emisión:</strong> @DateTime.Now.ToShortDateString()</p>
+        <p><strong>Boleta N°:</strong> 0001-@Model.Producto.ProductoId</p>
+    </div>
+
+    <div class="boleta-details">
+        <table class="details-table">
+            <tr>
+                <td><strong>Producto:</strong></td>
+                <td>@Model.Producto.Nombre</td>
+            </tr>
+            <tr>
+                <td><strong>Cantidad:</strong></td>
+                <td>@Model.CantidadVendida</td>
+            </tr>
+            <tr>
+                <td><strong>Precio Unitario:</strong></td>
+                <td>@Model.Producto.Precio.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</td>
+            </tr>
+            <tr>
+                <td><strong>Total Venta:</strong></td>
+                <td>@((Model.CantidadVendida * Model.Producto.Precio).ToString("C0", new System.Globalization.CultureInfo("es-CL")))</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="qr-section">
+        <p>Escanea este código para más detalles</p>
+        <img src="@ViewBag.BoletaQR" alt="Código QR de Cuidados" id="qrImage" class="qr-small" />
+        <a id="downloadQrButton" class="btn btn-success" download="codigo-qr.png">Descargar QR</a>
+    </div>
+
+    <div class="boleta-footer">
+        <p>Gracias por su compra</p>
+        <p>Vivero NCJ - Generado automáticamente</p>
+    </div>
+
+    <div class="boleta-actions">
+        <a href="data:application/pdf;base64,@ViewBag.BoletaPDF" download="boleta.pdf" class="btn btn-primary">Descargar Boleta PDF</a>
+        <a asp-action="Index" class="btn btn-volver">Volver</a>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const qrImage = document.getElementById('qrImage');
+        const downloadButton = document.getElementById('downloadQrButton');
+
+        if (qrImage && downloadButton) {
+            downloadButton.href = qrImage.src;
+        } else {
+            console.error("QR Image o Download Button no encontrados");
+        }
+    });
+</script>

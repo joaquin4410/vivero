@@ -1,0 +1,26 @@
+﻿@model vivero.Models.Producto
+
+<link rel="stylesheet" href="/css/Productos/Delete.css">
+
+<h2>Eliminar Producto</h2>
+
+<h4>¿Estás seguro de que deseas eliminar este producto?</h4>
+<div class="form-container">
+    <h5>@Model.Nombre</h5>
+    <dl>
+        <dt>Descripción:</dt>
+        <dd>@Model.Descripcion</dd>
+        <dt>Precio:</dt>
+        <dd>@Model.Precio.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL"))</dd>
+        <dt>Cantidad:</dt>
+        <dd>@Model.Cantidad</dd>
+    </dl>
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="ProductoId" />
+    <div class="button-container">
+        <button type="submit" class="btn-eliminar">Eliminar</button>
+        <a asp-action="Index" class="btn-volver">Cancelar</a>
+    </div>
+</form>

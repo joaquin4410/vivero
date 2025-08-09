@@ -1,0 +1,30 @@
+﻿@model vivero.Models.Proveedor
+
+<link rel="stylesheet" href="/css/Proveedores/Edit.css">
+
+<div class="form-container">
+    <h1>Editar Proveedor</h1>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ProveedorId" />
+
+        <div>
+            <label>Nombre</label>
+            <input asp-for="Nombre" type="text" />
+            <span asp-validation-for="Nombre"></span>
+        </div>
+
+        <div>
+            <label>Precio de Compra</label>
+            <input asp-for="PrecioCompra" asp-format="{0:C}"
+                   type="number" 
+                   step="0.01"
+                   value="@Model.PrecioCompra.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL"))" />
+            <span asp-validation-for="PrecioCompra"></span>
+        </div>
+
+        <button type="submit" class="btn-guardar">Guardar Cambios</button>
+    </form>
+
+    <a asp-action="Index" class="btn-volver">Volver</a>
+</div>

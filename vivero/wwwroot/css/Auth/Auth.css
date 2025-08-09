@@ -1,0 +1,86 @@
+﻿/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5; /* Gris claro */
+    color: #333; /* Texto primario */
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Form container */
+.form-container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    /* Image section */
+    .form-container .col-md-6:first-child {
+        background-color: #F2F3FF; /* Azul pastel claro */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-container img {
+        max-width: 100%;
+        border-radius: 0 0 0 8px;
+    }
+
+    /* Form section */
+    .form-container .col-md-6:last-child {
+        background-color: #192C30; /* Verde oscuro */
+        color: white;
+        padding: 40px;
+    }
+
+    .form-container h1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2.5rem;
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+/* Form fields */
+.form-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.form-control {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+    .form-control:focus {
+        outline: none;
+        border-color: #B2DFDB; /* Verde pastel */
+        box-shadow: 0 0 5px rgba(178, 223, 219, 0.5);
+    }
+
+/* Submit button */
+.btn-primary {
+    background-color: black;
+    border-color: black;
+    font-size: 1.2rem;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+    .btn-primary:hover {
+        background-color: #333; /* Gris oscuro */
+        transform: scale(1.05);
+    }

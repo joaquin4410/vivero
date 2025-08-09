@@ -1,0 +1,26 @@
+﻿@model vivero.Models.Proveedor
+<link rel="stylesheet" href="/css/Proveedores/Delete.css">
+<div class="form-container">
+    <h2>Eliminar Proveedor</h2>
+
+    <h4>@Model.Nombre</h4>
+    <hr />
+
+    <dl>
+        <dt>Nombre</dt>
+        <dd>@Model.Nombre</dd>
+
+        <dt>Precio de Compra</dt>
+        <dd>@Model.PrecioCompra.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL"))</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="ProveedorId" />
+        <p class="text-center">¿Estás seguro de que deseas eliminar este proveedor?</p>
+
+        <div class="button-container">
+            <button type="submit" class="btn-eliminar">Eliminar</button>
+            <a asp-action="Index" class="btn-volver">Volver</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,65 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Grand+Cru+S:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Antic+Didone&display=swap');
+
+body {
+    font-family: 'Antic Didone', serif;
+    background-color: #ffffff;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.ganancias-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.titulo-principal {
+    font-family: 'Grand Cru S', serif;
+    font-size: 2.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.subtitulo-tabla {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .table thead th {
+        background-color: #d9d9d9;
+        color: #333;
+        padding: 10px;
+        border-bottom: 2px solid #ddd;
+        text-align: left;
+    }
+
+    .table tbody td {
+        background-color: #fafbf5;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+.input-ganancias {
+    width: 100%;
+    padding: 10px;
+    font-family: 'Antic Didone', serif;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fafbf5;
+    text-align: center;
+    font-size: 1.2em;
+    color: #333;
+}

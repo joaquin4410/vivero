@@ -1,0 +1,136 @@
+﻿/* ------------------------------------------------------------------
+   General Styles
+-------------------------------------------------------------------- */
+body {
+    font-family: 'Grand Cru S', serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    text-align: center;
+}
+
+/* Title Styles */
+h2 {
+    font-family: 'Grand Cru S', serif;
+    font-size: 28px;
+    text-align: center;
+    margin: 40px 0 10px;
+}
+
+/* Contenedor Principal (form-container) */
+.form-container {
+    background-color: #fafbf5;
+    border-radius: 10px;
+    padding: 20px 30px;
+    width: 50%;
+    margin: 30px auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+/* Formulario */
+form {
+    margin-top: 10px;
+}
+
+    /* Espacio entre secciones del formulario */
+    form > div {
+        margin-bottom: 15px;
+    }
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-family: 'Montserrat Light', sans-serif;
+    font-size: 14px;
+    color: #000;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.form-control {
+    font-family: 'Antic Didone', serif;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.text-danger {
+    font-family: 'Open Sans', sans-serif;
+    color: #c0392b;
+    font-size: 12px;
+}
+
+/* Botones */
+.button-container,
+.form-actions {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+button,
+.btn-volver {
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* Botón guardar */
+.btn-guardar {
+    background-color: #90ee90;
+    color: #fff;
+    border: none;
+}
+
+    .btn-guardar:hover {
+        background-color: #7ed37e;
+    }
+
+/* Botón volver */
+.btn-volver {
+    background-color: #9e9e9e;
+    color: #fff;
+    border: none;
+}
+
+    .btn-volver:hover {
+        background-color: #7d7d7d;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .form-label {
+        font-size: 12px;
+    }
+
+    .form-control {
+        font-size: 12px;
+    }
+
+    button,
+    .btn-volver {
+        font-size: 12px;
+        padding: 8px 15px;
+    }
+}

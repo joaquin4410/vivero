@@ -1,0 +1,39 @@
+﻿@model vivero.Models.Producto
+
+<link rel="stylesheet" href="/css/Productos/Details.css">
+
+<h1>Detalles producto</h1>
+
+<div class="form-container">
+    <form>
+        <div>
+            <label>Nombre</label>
+            <input type="text" value="@Model.Nombre" readonly />
+        </div>
+        <div>
+            <label>Precio compra</label>
+            <input type="text" value="@Model.Proveedor.PrecioCompra.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL"))" readonly />
+        </div>
+        <div>
+            <label>Precio venta</label>
+            <input type="text" value="@Model.Precio.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL"))" readonly />
+        </div>
+        <div>
+            <label>Ganancia</label>
+            <input type="text" value="@((Model.Precio - Model.Proveedor.PrecioCompra).ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL")))" readonly />
+        </div>
+        <div>
+            <label>Proveedor</label>
+            <input type="text" value="@Model.Proveedor.Nombre" readonly />
+        </div>
+        <div class="form-group">
+            <label>Categoría:</label>
+            <p>@Model.Categoria</p>
+        </div>
+
+        <div class="form-actions">
+            <a href="@Url.Action("Vender", "Productos", new { id = Model.ProductoId })" class="btn-vender">Vender</a>
+            <a href="@Url.Action("Index", "Productos")" class="btn-volver">Volver</a>
+        </div>
+    </form>
+</div>

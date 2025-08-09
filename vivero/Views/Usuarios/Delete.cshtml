@@ -1,0 +1,35 @@
+﻿@model vivero.Models.Usuario
+
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<link rel="stylesheet" href="/css/Usuarios/Delete.css">
+
+<h1>Eliminar Usuario</h1>
+<h2>¿Estás seguro de que deseas eliminar este usuario?</h2>
+
+<div class="form-container">
+    <form asp-action="Delete" asp-route-id="@Model.Rut" method="post">
+        <div class="form-group">
+            <label for="Rut">Rut</label>
+            <input type="text" name="Rut" class="form-control" value="@Model.Rut" readonly />
+        </div>
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <input type="text" name="Nombre" class="form-control" value="@Model.Nombre" readonly />
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="text" name="Email" class="form-control" value="@Model.Email" readonly />
+        </div>
+        <div class="form-group">
+            <label for="Rol">Rol</label>
+            <input type="text" name="Rol" class="form-control" value="@Model.Rol" readonly />
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-eliminar">Eliminar</button>
+            <a asp-action="Index" class="btn-cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,77 @@
+﻿@model vivero.Models.Usuario
+
+@{
+    ViewData["Title"] = "Crear Usuario";
+}
+
+<link rel="stylesheet" href="/css/Auth/CreateWorker.css">
+<link rel="stylesheet" href="/css/Usuarios/Create.css">
+
+<h1>Crear Usuario</h1>
+
+<div class="form-container">
+    <form asp-action="CreateWorker" asp-controller="Auth" method="post">
+        <div class="form-group">
+            <label for="Rut">RUT</label>
+            <input name="Rut" class="form-control" required />
+            <span asp-validation-for="Rut" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Nombre">Nombre</label>
+            <input name="Nombre" class="form-control" required />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input name="Email" type="email" class="form-control" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label for="Password">Contraseña</label>
+            <input type="password" name="Password" class="form-control" required oninput="checkStrength(this.value)" />
+            <p id="password-strength">Fuerza de la contraseña: <span id="strength-level">@ViewBag.PasswordStrength</span></p>
+        </div>
+        <div class="form-group">
+            <label for="Rol">Rol</label>
+            <select name="Rol" class="form-control" required>
+                <option value="Trabajador">Trabajador</option>
+                <option value="Administrador">Administrador</option>
+            </select>
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-guardar">Guardar</button>
+            <a asp-action="Index" asp-controller="Usuarios" class="btn-volver">Volver</a>
+        </div>
+    </form>
+</div>
+<script>
+    function checkStrength(password) {
+        const strengthLabel = document.getElementById("strength-level");
+        let strength = "Débil";
+
+        if (password.length >= 8) {
+            let score = 0;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+            switch (score) {
+                case 5:
+                    strength = "Muy Fuerte";
+                    break;
+                case 4:
+                    strength = "Fuerte";
+                    break;
+                case 3:
+                    strength = "Media";
+                    break;
+                default:
+                    strength = "Débil";
+            }
+        }
+
+        strengthLabel.textContent = strength;
+    }
+</script>

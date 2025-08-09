@@ -1,0 +1,265 @@
+﻿@model IEnumerable<vivero.Models.Producto>
+@{
+    ViewData["Title"] = "Catálogo de Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="/css/Productos/ProductosDisponibles.css" asp-append-version="true" />
+
+<!-- ENCABEZADO -->
+<div class="catalogo-header text-center position-relative">
+    <h2><i class="fa-solid fa-seedling"></i> Catálogo de Productos</h2>
+    <p>Explora los mejores productos de tu vivero con una gestión eficiente y visualmente atractiva.</p>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form asp-action="LogOut" asp-controller="Auth" method="post" class="position-absolute" style="top: 10px; right: 10px; margin: 0;">
+            <button type="submit" class="btn btn-sm btn-outline-danger">Cerrar Sesión</button>
+        </form>
+    }
+</div>
+
+<!-- FILTROS - PANEL LATERAL -->
+<div class="main-container">
+    <!-- FILTROS LATERALES -->
+    <div class="filtro-sidebar">
+        <h3><i class="fa-solid fa-filter"></i> Filtros</h3>
+
+        <!-- Búsqueda -->
+        <div class="filtro-busqueda">
+            <label for="buscar-filtro">Buscar</label>
+            <input type="text" id="buscar-filtro" placeholder="Buscar..." />
+        </div>
+
+        <!-- Disponibilidad -->
+        <div class="filtro-categorias">
+            <h4>Disponibilidad</h4>
+            <div class="filtro-opcion">
+                <input type="checkbox" id="disponibles" class="checkbox-filtro" value="disponibles">
+                <label for="disponibles">Disponibles <span class="cantidad"></span></label>
+            </div>
+            <div class="filtro-opcion">
+                <input type="checkbox" id="agotados" class="checkbox-filtro" value="agotados">
+                <label for="agotados">Agotados <span class="cantidad"></span></label>
+            </div>
+        </div>
+
+        <!-- Botón Aplicar Filtros -->
+        <div class="filtro-boton">
+            <button class="btn-aplicar-filtros">Aplicar Filtros</button>
+            <button class="btn-borrar-filtros">Borrar Filtros</button>
+        </div>
+    </div>
+
+    <!-- CONTENEDOR DE PRODUCTOS -->
+    <div class="productos-container">
+        <div class="row" id="productos-list">
+            @foreach (var producto in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4 producto-item @(producto.Cantidad > 0 ? "disponible" : "agotado")">
+                    <div class="producto-card">
+                        <div class="producto-img-container">
+                            <img src="@producto.Foto" alt="@producto.Nombre" class="producto-img">
+                        </div>
+                        <div class="producto-content">
+                            <h5>@producto.Nombre</h5>
+                            <p><strong>Precio:</strong> @producto.Precio.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</p>
+                            <p><strong>Stock Disponible:</strong> <span class="producto-stock" data-id="@producto.ProductoId">@producto.Cantidad</span></p>
+                            <div>
+                                <input type="number" class="cantidad-input" min="1" max="@producto.Cantidad" value="1">
+                                <button class="btn btn-success btn-agregar-carrito"
+                                        data-id="@producto.ProductoId"
+                                        data-nombre="@producto.Nombre"
+                                        data-precio="@producto.Precio">
+                                    Añadir al Carrito
+                                </button>
+                            </div>
+                        </div>
+                        <div class="producto-overlay">
+                            <span class="producto-status">
+                                @(producto.Cantidad > 0 ? "Disponible" : "Agotado")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal del Carrito -->
+<div id="carrito-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" id="cerrar-carrito">&times;</span>
+        <h3>Carrito de Compras</h3>
+        <table id="carrito-tabla" class="carrito-tabla">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <h4>Total: <span id="carrito-total">0</span></h4>
+        <button id="btn-pagar" class="btn btn-primary btn-pagar">Pagar</button>
+    </div>
+</div>
+
+<!-- BOTÓN VOLVER -->
+<div class="boton-volver-container text-start mb-4">
+    <a href="@Url.Action("Index", "Home")" class="btn-volver">
+        <i class="fa-solid fa-arrow-left"></i> Volver
+    </a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Vivero NCJ. Todos los derechos reservados.</p>
+        <div class="footer-links">
+        </div>
+    </div>
+</footer>
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<script>
+    // Funcionalidad de búsqueda
+    document.getElementById("buscar-filtro").addEventListener("input", function () {
+        let texto = this.value.toLowerCase();
+        let productos = document.querySelectorAll(".producto-item");
+
+        productos.forEach(producto => {
+            let nombreProducto = producto.querySelector(".producto-content h5").textContent.toLowerCase();
+            if (nombreProducto.includes(texto)) {
+                producto.style.display = "block"; // Mostrar si coincide
+            } else {
+                producto.style.display = "none"; // Ocultar si no coincide
+            }
+        });
+    });
+
+    // Aplicar filtros existentes
+    document.querySelector(".btn-aplicar-filtros").addEventListener("click", function () {
+        let disponibles = document.getElementById("disponibles").checked;
+        let agotados = document.getElementById("agotados").checked;
+        let productos = document.querySelectorAll(".producto-item");
+
+        productos.forEach(producto => {
+            let esDisponible = producto.classList.contains("disponible");
+            let esAgotado = producto.classList.contains("agotado");
+
+            producto.style.display = "none";
+
+            if (disponibles && esDisponible) {
+                producto.style.display = "block";
+            } else if (agotados && esAgotado) {
+                producto.style.display = "block";
+            } else if (!disponibles && !agotados) {
+                producto.style.display = "block";
+            }
+        });
+    });
+
+    // Borrar filtros
+    document.querySelector(".btn-borrar-filtros").addEventListener("click", function () {
+        // Limpiar checkboxes
+        document.querySelectorAll(".checkbox-filtro").forEach(checkbox => checkbox.checked = false);
+
+        // Limpiar campo de búsqueda
+        document.getElementById("buscar-filtro").value = "";
+
+        // Mostrar todos los productos
+        let productos = document.querySelectorAll(".producto-item");
+        productos.forEach(producto => {
+            producto.style.display = "block";
+        });
+    });
+</script>
+<script>
+    let carrito = [];
+
+    document.querySelectorAll('.btn-agregar-carrito').forEach(boton => {
+        boton.addEventListener('click', function () {
+            const id = this.getAttribute('data-id');
+            const nombre = this.getAttribute('data-nombre');
+            const precio = parseFloat(this.getAttribute('data-precio'));
+            const cantidadInput = this.parentElement.querySelector('.cantidad-input');
+            const cantidad = parseInt(cantidadInput.value);
+
+            const stockElement = this.parentElement.parentElement.querySelector('.producto-stock');
+            let stockDisponible = parseInt(stockElement.textContent);
+
+            if (cantidad > stockDisponible) {
+                alert('No hay suficiente stock disponible.');
+                return;
+            }
+
+            // Actualizar stock
+            stockDisponible -= cantidad;
+            stockElement.textContent = stockDisponible;
+
+            // Agregar al carrito
+            const productoEnCarrito = carrito.find(item => item.id === id);
+            if (productoEnCarrito) {
+                productoEnCarrito.cantidad += cantidad;
+            } else {
+                carrito.push({ id, nombre, precio, cantidad });
+            }
+
+            actualizarCarrito();
+            mostrarCarrito();
+        });
+    });
+
+    function actualizarCarrito() {
+        const carritoTabla = document.querySelector('#carrito-tabla tbody');
+        carritoTabla.innerHTML = '';
+        let total = 0;
+
+        carrito.forEach(producto => {
+            const subtotal = producto.precio * producto.cantidad;
+            total += subtotal;
+
+            carritoTabla.innerHTML += `
+                    <tr>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.cantidad}</td>
+                        <td>${producto.precio.toLocaleString("es-CL", { style: "currency", currency: "CLP" })}</td>
+                        <td>${subtotal.toLocaleString("es-CL", { style: "currency", currency: "CLP" })}</td>
+                    </tr>
+                `;
+        });
+
+        document.getElementById('carrito-total').textContent = total.toLocaleString("es-CL", { style: "currency", currency: "CLP" });
+    }
+
+    function mostrarCarrito() {
+        const carritoModal = document.getElementById('carrito-modal');
+        carritoModal.style.display = 'block';
+    }
+
+    document.getElementById('cerrar-carrito').addEventListener('click', function () {
+        const carritoModal = document.getElementById('carrito-modal');
+        carritoModal.style.display = 'none';
+    });
+
+    document.getElementById('btn-pagar').addEventListener('click', function () {
+        fetch('/api/payment/create-session', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(carrito),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.url) {
+                    window.location.href = data.url;
+                } else {
+                    alert('Error al crear la sesión de pago.');
+                }
+            });
+    });
+</script>

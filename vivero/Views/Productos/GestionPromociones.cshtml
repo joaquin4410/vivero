@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Promocion>
+
+<div class="container mt-5">
+    <h2>Gestión de Promociones</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Descuento</th>
+                <th>Fecha de Inicio</th>
+                <th>Fecha de Fin</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var promocion in Model)
+            {
+                <tr>
+                    <td>@promocion.Producto.Nombre</td>
+                    <td>@promocion.Descuento %</td>
+                    <td>@promocion.FechaInicio.ToShortDateString()</td>
+                    <td>@promocion.FechaFin.ToShortDateString()</td>
+                    <td>
+                        <a href="/Productos/EliminarPromocion?promocionId=@promocion.PromocionId" class="btn btn-danger btn-sm">Eliminar</a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <form asp-action="CrearPromocion" method="post">
+        <div class="form-group">
+            <label for="ProductoId">Producto</label>
+            <select id="ProductoId" name="ProductoId" class="form-control">
+                @* Opciones de productos *@
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Descuento">Descuento (%)</label>
+            <input type="number" id="Descuento" name="Descuento" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="FechaInicio">Fecha de Inicio</label>
+            <input type="date" id="FechaInicio" name="FechaInicio" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="FechaFin">Fecha de Fin</label>
+            <input type="date" id="FechaFin" name="FechaFin" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Crear Promoción</button>
+    </form>
+</div>

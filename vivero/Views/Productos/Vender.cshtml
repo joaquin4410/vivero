@@ -1,0 +1,45 @@
+﻿<link rel="stylesheet" href="/css/Productos/Vender.css">
+
+<h1>Venta de @ViewBag.ProductoId</h1>
+
+<div class="form-container">
+    <form asp-action="Vender" method="post">
+        <input type="hidden" name="id" value="@ViewBag.ProductoId" />
+
+        <div class="form-group">
+            <label for="cantidad">Cantidad a Vender:</label>
+            <input type="number" name="cantidad" class="form-control" required min="1" />
+        </div>
+
+        <div class="form-group">
+            <label for="cuidados">Cuidados de la Planta:</label>
+            <textarea name="cuidados" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="correoCliente">Correo del Cliente:</label>
+            <input type="email" name="correoCliente" class="form-control" />
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-boleta">Generar Boleta</button>
+            <a asp-action="Index" class="btn-volver">Volver</a>
+        </div>
+    </form>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const qrImage = document.getElementById('qrImage');
+        const downloadButton = document.getElementById('downloadQrButton');
+
+        if (qrImage && downloadButton) {
+            // Configurar el enlace para descargar la imagen QR
+            downloadButton.href = qrImage.src;
+        } else {
+            console.error("QR Image o Download Button no encontrados");
+        }
+    });
+</script>

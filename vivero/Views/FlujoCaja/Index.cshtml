@@ -1,0 +1,373 @@
+﻿@model IEnumerable<vivero.Models.FlujoCaja>
+
+@{
+    ViewData["Title"] = "Flujo de Caja";
+
+    // Variables acumulativas para los totales globales
+    var totalIngresos = Model.Sum(f => f.TotalIngresos);
+    var totalEgresos = Model.Sum(f => f.TotalEgresos);
+    var saldoFinalGlobal = Model.Sum(f => f.SaldoFinal);
+
+    // Definir resultados
+    string indicadorIngresos = totalIngresos > totalEgresos ? "Satisfactorio" : "Insuficiente";
+    string indicadorEgresos = totalEgresos < totalIngresos ? "Controlado" : "Elevado";
+    string indicadorSaldoFinal = saldoFinalGlobal >= 0 ? "Positivo" : "Negativo";
+
+    // Estilos para los indicadores
+    string estiloIngresos = totalIngresos > totalEgresos ? "text-success" : "text-danger";
+    string estiloEgresos = totalEgresos < totalIngresos ? "text-success" : "text-danger";
+    string estiloSaldoFinal = saldoFinalGlobal >= 0 ? "text-success" : "text-danger";
+}
+
+<!-- Referencia al CSS para el diseño basado en la nueva imagen -->
+<link rel="stylesheet" href="~/css/Flujo_Caja/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Menu.css" asp-append-version="true" />
+
+<!-- Menú lateral -->
+<div class="menu" id="menu">
+    <!-- Botón para cerrar o abrir el menú -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <!-- Opciones del menú lateral -->
+    <div class="menu-items">
+        <!-- Gestión de Usuarios -->
+        <span class="menu-description">Gestión de Usuarios</span>
+        <a asp-controller="Usuarios" asp-action="Index" class="menu-item">
+            Administrar Usuarios
+        </a>
+        <a asp-controller="Historial" asp-action="Index" class="menu-item">
+            Historial de Actividades
+        </a>
+        <!-- Gestión de Proveedores -->
+        <span class="menu-description">Gestión de Proveedores</span>
+        <a asp-controller="Proveedores" asp-action="Index" class="menu-item">
+            Gestión de Proveedores
+        </a>
+
+        <!-- Gestión de Productos -->
+        <span class="menu-description">Gestión de Productos</span>
+        <a asp-controller="Productos" asp-action="Index" class="menu-item">
+            Ver Productos
+        </a>
+        <a asp-controller="Productos" asp-action="Promociones" class="menu-item">
+            Gestión de Promociones
+        </a>
+        <a asp-controller="Productos" asp-action="HistorialMovimientos" class="menu-item">
+            Gestión de Stock
+        </a>
+        <a asp-controller="Productos" asp-action="Catalogo" class="menu-item">
+            Catálogo en Línea
+        </a>
+        <a asp-controller="Productos" asp-action="Buscar" class="menu-item">
+            Buscar Productos
+        </a>
+        <a asp-controller="Productos" asp-action="InformacionStock" class="menu-item">
+            Información de Stock
+        </a>
+
+        <!-- Reportes -->
+        <span class="menu-description">Reportes</span>
+        <a asp-controller="Dashboard" asp-action="ProductosMasVendidos" class="menu-item">
+            Productos Más Vendidos
+        </a>
+        <a asp-controller="Dashboard" asp-action="VentasPorPeriodo" class="menu-item">
+            Ventas por Período
+        </a>
+        <a asp-controller="Productos" asp-action="GenerarReporteFrecuencia" class="menu-item">
+            Reportes Frecuentes
+        </a>
+
+        <!-- Ganancias -->
+        <span class="menu-description">Ganancias</span>
+        <a asp-controller="Dashboard" asp-action="Ganancias" class="menu-item">
+            Ganancias por Producto
+        </a>
+        <a asp-controller="Dashboard" asp-action="GananciasMensuales" class="menu-item">
+            Ganancias Mensuales
+        </a>
+        <a asp-controller="GananciasHistoricas" asp-action="Index" class="menu-item">
+            Ganancias Históricas
+        </a>
+
+
+
+        <!-- Funciones adicionales -->
+        <span class="menu-description">Funciones Adicionales</span>
+        <a asp-controller="Dashboard" asp-action="AnalisisRotacion" class="menu-item">
+            Análisis de Rotación
+        </a>
+        <a asp-controller="FlujoCaja" asp-action="Index" class="menu-item">
+            Flujo de Caja
+        </a>
+        <a asp-controller="Dashboard" asp-action="Simulacion" class="menu-item">
+            Simular Escenarios
+        </a>
+        <a asp-controller="Dashboard" asp-action="GenerarCotizacion" class="menu-item">
+            Generar Cotizaciones
+        </a>
+        <a asp-controller="Productos" asp-action="AlertaBajoInventario" class="menu-item">
+            Quiebre De Stock
+        </a>
+        <a asp-controller="Dashboard" asp-action="CalcularUtilidades" class="menu-item">
+            Calcular Utilidades
+        </a>
+        <!-- Navegación General -->
+        <span class="menu-description">Navegación</span>
+        <a href="/Dashboard/Index" class="menu-item">Inicio</a>
+    </div>
+
+    <!-- Botón para cerrar sesión -->
+    <form asp-controller="Auth" asp-action="LogOut" method="post">
+        <button class="btn-logout" type="submit">Cerrar Sesión</button>
+    </form>
+</div>
+
+
+
+
+<h1>Flujo de caja</h1>
+
+<!-- Indicadores generales -->
+<div class="row mb-3">
+    <div class="col-md-3 text-center">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <h5>Total Ingresos</h5>
+                <h3 class="@estiloIngresos">@totalIngresos.ToString("C", new System.Globalization.CultureInfo("es-CL"))</h3>
+                <p class="text-muted">@indicadorIngresos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 text-center">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <h5>Total Egresos</h5>
+                <h3 class="@estiloEgresos">@totalEgresos.ToString("C", new System.Globalization.CultureInfo("es-CL"))</h3>
+                <p class="text-muted">@indicadorEgresos</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 text-center">
+        <div class="card border-0 shadow">
+            <div class="card-body">
+                <h5>Saldo Final</h5>
+                <h3 class="@estiloSaldoFinal">@saldoFinalGlobal.ToString("C", new System.Globalization.CultureInfo("es-CL"))</h3>
+                <p class="text-muted">@indicadorSaldoFinal</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Tabla -->
+<div class="table-responsive">
+    <table class="table table-bordered table-striped text-center">
+        <thead>
+            <tr class="bg-primary text-white">
+                <th>Concepto</th>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <th>@flujo.Fecha.ToString("MMMM yyyy")</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Saldo Inicial</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.SaldoInicial.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Ventas en Efectivo</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.VentasEfectivo.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Ventas a Crédito</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.VentasCredito.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Cobros Activos</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.CobrosActivos.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Total Ingresos</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    var ingresoPorcentaje = flujo.TotalIngresos != 0 ? (flujo.TotalIngresos / (flujo.SaldoInicial + flujo.TotalIngresos) * 100) : 0;
+                    <td>
+                        @flujo.TotalIngresos.ToString("C", new System.Globalization.CultureInfo("es-CL"))
+                        <span class="text-secondary">(@ingresoPorcentaje.ToString("F2")%)</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>Compra Mercancía</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.CompraMercancia.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Pago Nómina</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.PagoNomina.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Pago Proveedores</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.PagoProveedores.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Total Egresos</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    var egresoPorcentaje = flujo.TotalEgresos != 0 ? (flujo.TotalEgresos / (flujo.SaldoInicial + flujo.TotalIngresos) * 100) : 0;
+                    <td>
+                        @flujo.TotalEgresos.ToString("C", new System.Globalization.CultureInfo("es-CL"))
+                        <span class="text-secondary">(@egresoPorcentaje.ToString("F2")%)</span>
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>Préstamos</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.PrestamosRecibidos.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td>Total Financiamiento</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td>@flujo.TotalFinanciamiento.ToString("C", new System.Globalization.CultureInfo("es-CL"))</td>
+                }
+            </tr>
+            <tr>
+                <td class="fw-bold">Saldo Final</td>
+                @foreach (var flujo in Model.OrderBy(x => x.Fecha))
+                {
+                    <td class="@((flujo.SaldoFinal >= 0) ? "text-success" : "text-danger")">
+                        @flujo.SaldoFinal.ToString("C", new System.Globalization.CultureInfo("es-CL"))
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Botón para agregar flujo -->
+<div class="text-center mt-4">
+    <a asp-action="Create" class="btn btn-primary">Agregar flujo de caja</a>
+</div>
+
+<!-- Gráfico de línea -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<canvas id="flujocajaChart" width="400" height="200"></canvas>
+<script>
+    var ctx = document.getElementById('flujocajaChart').getContext('2d');
+    var saldoFinalData = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Fecha).Select(x => x.SaldoFinal)));
+    var totalIngresosData = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Fecha).Select(x => x.TotalIngresos)));
+    var totalEgresosData = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Fecha).Select(x => x.TotalEgresos)));
+    var meses = @Html.Raw(Json.Serialize(Model.OrderBy(x => x.Fecha).Select(x => x.Fecha.ToString("MMM yyyy"))));
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: meses,
+            datasets: [
+                {
+                    label: 'Saldo Final',
+                    data: saldoFinalData,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgba(0, 0, 255, 0.1)',
+                    tension: 0.3,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Total Ingresos',
+                    data: totalIngresosData,
+                    borderColor: 'green',
+                    backgroundColor: 'rgba(0, 255, 0, 0.1)',
+                    tension: 0.3,
+                    borderWidth: 2
+                },
+                {
+                    label: 'Total Egresos',
+                    data: totalEgresosData,
+                    borderColor: 'red',
+                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                    tension: 0.3,
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            return `${tooltipItem.dataset.label}: ${tooltipItem.raw.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' })}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    ticks: {
+                        callback: function (value) {
+                            return value.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+</script>
+
+<!--Menú lateral-->
+<script>
+    function toggleMenu(forceOpen = null) {
+        const menu = document.getElementById("menu");
+        const content = document.querySelector(".content");
+
+        // Alterna el estado del menú
+        if (forceOpen === true || (!menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.add("open");
+            content.style.marginLeft = "220px";
+        } else if (forceOpen === false || (menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.remove("open");
+            content.style.marginLeft = "0";
+        }
+    }
+
+    // Detecta si el cursor se acerca al borde izquierdo
+    document.addEventListener("mousemove", (event) => {
+        if (event.clientX <= 20) {
+            toggleMenu(true); // Abre el menú si el cursor está cerca del borde izquierdo
+        } else if (event.clientX > 240) {
+            toggleMenu(false); // Cierra el menú si el cursor se aleja
+        }
+    });
+</script>

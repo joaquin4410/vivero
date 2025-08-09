@@ -1,0 +1,114 @@
+﻿/* General Styles */
+body {
+    font-family: 'Grand Cru S', serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+/* Title Styles */
+h1 {
+    font-family: 'Grand Cru S', serif;
+    text-align: center;
+    margin: 20px 0;
+}
+
+h2 {
+    font-family: 'Grand Cru S', serif;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Form Container */
+.form-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fafbf5;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-family: 'Montserrat Light', sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+input[type="text"] {
+    font-family: 'Antic Didone', serif;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    pointer-events: none; /* Campos de solo lectura */
+}
+
+/* Buttons */
+button {
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-eliminar {
+    background-color: #cb4154;
+    color: #fff;
+}
+
+    .btn-eliminar:hover {
+        background-color: #b83849;
+    }
+
+.btn-cancelar {
+    background-color: #90a68c;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 1px solid #7d8e78; /* Añadir un borde para más definición */
+    border-radius: 8px; /* Bordes más redondeados */
+    text-decoration: none; /* Evitar subrayado */
+    display: inline-block; /* Asegurar que se comporte como un botón */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Suavizar la transición */
+}
+
+    .btn-cancelar:hover {
+        background-color: #7d8e78;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Añadir un efecto de sombra */
+        text-decoration: none; /* Mantener sin subrayado en hover */
+    }
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    input[type="text"] {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,125 @@
+﻿/* ------------------------------------------------------------------ */
+/* Tipografía y configuraciones generales */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: #fafafa;
+    color: #333;
+}
+
+/* ------------------------------------------------------------------ */
+/* Contenedor principal del producto */
+.product-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+
+    .product-container:hover {
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+/* ------------------------------------------------------------------ */
+/* Encabezado del producto */
+.product-header {
+    margin-bottom: 20px;
+}
+
+    .product-header h1 {
+        font-size: 28px;
+        color: #2a5934; /* Verde vinculado al ámbito vivero */
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+/* ------------------------------------------------------------------ */
+/* Sección de contenido del producto */
+.product-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+    .product-image:hover {
+        transform: scale(1.02);
+    }
+
+/* ------------------------------------------------------------------ */
+/* Detalles del producto */
+.product-details {
+    text-align: left;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+    background-color: #f7f7f7;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+    .product-details p {
+        margin-bottom: 10px;
+    }
+
+    .product-details strong {
+        color: #2a5934;
+    }
+
+/* ------------------------------------------------------------------ */
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .product-container {
+        width: 90%;
+        margin: 30px auto;
+    }
+
+    .product-header h1 {
+        font-size: 22px;
+    }
+
+    .product-image {
+        max-width: 90%;
+    }
+
+    .product-details {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .product-header h1 {
+        font-size: 20px;
+    }
+
+    .product-details {
+        font-size: 14px;
+    }
+}

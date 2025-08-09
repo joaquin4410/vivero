@@ -1,0 +1,119 @@
+﻿/* General Styles */
+body {
+    font-family: 'Grand Cru S', serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+/* Title Styles */
+h2 {
+    font-family: 'Grand Cru S', serif;
+    font-size:40px;
+    text-align: center;
+    margin: 40px 0 20px;
+}
+
+/* Alert Styles */
+.alert {
+    width: 80%;
+    margin: 0 auto 20px;
+    padding: 10px 20px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+}
+
+/* Table Styles */
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fafbf5;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+thead {
+    background-color: #d9d9d9;
+    font-family: 'Montserrat Light', sans-serif;
+    font-size: 16px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+    font-family: 'Antic Didone', serif;
+    font-size: 14px;
+    color: #333;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Input Field */
+input[type="number"] {
+    font-family: 'Antic Didone', serif;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 80px;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+/* Buttons */
+button {
+    font-family: 'Open Sans', sans-serif;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #609faf;
+    color: #fff;
+}
+
+    .btn-primary:hover {
+        background-color: #4a7c8a;
+    }
+
+.btn-danger {
+    background-color: #cb4154;
+    color: #fff;
+}
+
+    .btn-danger:hover {
+        background-color: #b83849;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        font-size: 12px;
+    }
+
+    input[type="number"] {
+        font-size: 12px;
+    }
+
+    button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}

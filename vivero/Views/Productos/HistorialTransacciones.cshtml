@@ -1,0 +1,21 @@
+﻿<table>
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Total Venta</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaccion in Model)
+        {
+            <tr>
+                <td>@transaccion.Producto.Nombre</td>
+                <td>@transaccion.CantidadVendida</td>
+                <td>@transaccion.TotalVenta</td>
+                <td>@transaccion.FechaVenta</td>
+            </tr>
+        }
+    </tbody>
+</table>

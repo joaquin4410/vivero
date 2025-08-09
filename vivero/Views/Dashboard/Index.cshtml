@@ -1,0 +1,407 @@
+﻿@using System.Globalization
+
+@{
+    ViewData["Title"] = "Dashboard - Vivero";
+
+    // Definir metas
+    // Asignar valores predeterminados para evitar errores por nulos
+    var ventasTotales = ViewBag.VentasTotales ?? 0M;
+    var gananciasMensuales = ViewBag.GananciasMensuales ?? 0M;
+    var productosInventario = ViewBag.ProductosInventario ?? 0;
+    var proveedoresActivos = ViewBag.ProveedoresActivos ?? 0;
+
+    var metaVentasTotales = 10000000M;
+    var metaGananciasMensuales = 800000M;
+    var metaProductosInventario = 500;
+    var metaProveedoresActivos = 10;
+
+    var porcentajeVentasTotales = metaVentasTotales != 0 ? ventasTotales / metaVentasTotales * 100 : 0;
+    var porcentajeGananciasMensuales = metaGananciasMensuales != 0 ? gananciasMensuales / metaGananciasMensuales * 100 : 0;
+    var porcentajeProductosInventario = metaProductosInventario != 0 ? productosInventario / (decimal)metaProductosInventario * 100 : 0;
+    var porcentajeProveedoresActivos = metaProveedoresActivos != 0 ? proveedoresActivos / (decimal)metaProveedoresActivos * 100 : 0;
+
+    // Datos ficticios para comparación
+    var ventasAñoActual = 20000000M;
+    var ventasAñoAnterior = 15000000M;
+    var ventasMesActual = 2000000M;
+    var ventasMesAnterior = 1800000M;
+
+    // Cálculo de variaciones
+    var variacionAnual = ventasAñoAnterior != 0 ? ((ventasAñoActual - ventasAñoAnterior) / ventasAñoAnterior) * 100 : 0;
+    var variacionMensual = ventasMesAnterior != 0 ? ((ventasMesActual - ventasMesAnterior) / ventasMesAnterior) * 100 : 0;
+
+    // Estilo de variaciones
+    var estiloVariacionAnual = variacionAnual >= 0 ? "text-success" : "text-danger";
+    var estiloVariacionMensual = variacionMensual >= 0 ? "text-success" : "text-danger";
+
+    // Proyecciones futuras basadas en datos pasados
+    var promedioVentasMensuales = ventasAñoActual / 12;
+    var proyeccionIngresosAnuales = promedioVentasMensuales * 12;
+    var proyeccionIncremento = ventasAñoActual * 0.1M;
+
+    // Alertas Automáticas Dinámicas
+    var alertas = new List<string>();
+
+    // Ventas Totales
+    if (ventasTotales < metaVentasTotales)
+    {
+        var diferencia = metaVentasTotales - ventasTotales;
+        alertas.Add($"Precaución: Las ventas Anuales están por debajo de la meta por {diferencia.ToString("C", new CultureInfo("es-CL"))}. ¡Intenta impulsar las promociones!");
+    }
+    else
+    {
+        var excedente = ventasTotales - metaVentasTotales;
+        alertas.Add($"¡Excelente! Las ventas Anuales superaron la meta por {excedente.ToString("C", new CultureInfo("es-CL"))}. ¡Sigue así!");
+    }
+
+    // Ganancias Mensuales
+    if (gananciasMensuales < metaGananciasMensuales)
+    {
+        var diferencia = metaGananciasMensuales - gananciasMensuales;
+        alertas.Add($"Alerta: Las ganancias mensuales están por debajo de la meta por {diferencia.ToString("C", new CultureInfo("es-CL"))}. ¡Considera ajustar los costos!");
+    }
+    else
+    {
+        var excedente = gananciasMensuales - metaGananciasMensuales;
+        alertas.Add($"¡Buen trabajo! Las ganancias mensuales superaron la meta por {excedente.ToString("C", new CultureInfo("es-CL"))}. ¡Mantén el buen desempeño!");
+    }
+
+    // Productos en Inventario
+    if (productosInventario < metaProductosInventario)
+    {
+        var diferencia = metaProductosInventario - productosInventario;
+        alertas.Add($"Atención: El inventario está por debajo de la meta en {diferencia} productos. ¡Asegúrate de reponer stock pronto!");
+    }
+    else
+    {
+        var excedente = productosInventario - metaProductosInventario;
+        alertas.Add($"¡Genial! El inventario supera la meta en {excedente} productos. ¡Prepárate para la próxima temporada!");
+    }
+
+    // Proveedores Activos
+    if (proveedoresActivos < metaProveedoresActivos)
+    {
+        var diferencia = metaProveedoresActivos - proveedoresActivos;
+        alertas.Add($"Advertencia: El número de proveedores activos está por debajo de la meta por {diferencia}. ¡Explora nuevas colaboraciones!");
+    }
+    else
+    {
+        var excedente = proveedoresActivos - metaProveedoresActivos;
+        alertas.Add($"¡Excelente! Tienes {excedente} proveedores activos más que la meta. ¡Esto asegura una buena diversidad de productos!");
+    }
+}
+
+
+<link rel="stylesheet" href="~/css/Dashboard/Index.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Menu.css" asp-append-version="true" />
+
+<!-- Menú lateral -->
+<div class="menu" id="menu">
+    <!-- Botón para cerrar o abrir el menú -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <!-- Opciones del menú lateral -->
+    <div class="menu-items">
+        <!-- Gestión de Usuarios -->
+        <span class="menu-description">Gestión de Usuarios</span>
+        <a asp-controller="Usuarios" asp-action="Index" class="menu-item">
+            Administrar Usuarios
+        </a>
+        <a asp-controller="Historial" asp-action="Index" class="menu-item">
+            Historial de Actividades
+        </a>
+        <!-- Gestión de Proveedores -->
+        <span class="menu-description">Gestión de Proveedores</span>
+        <a asp-controller="Proveedores" asp-action="Index" class="menu-item">
+            Gestión de Proveedores
+        </a>
+
+        <!-- Gestión de Productos -->
+        <span class="menu-description">Gestión de Productos</span>
+        <a asp-controller="Productos" asp-action="Index" class="menu-item">
+            Ver Productos
+        </a>
+        <a asp-controller="Productos" asp-action="Promociones" class="menu-item">
+            Gestión de Promociones
+        </a>
+        <a asp-controller="Productos" asp-action="HistorialMovimientos" class="menu-item">
+            Gestión de Stock
+        </a>
+        <a asp-controller="Productos" asp-action="Catalogo" class="menu-item">
+            Catálogo en Línea
+        </a>
+        <a asp-controller="Productos" asp-action="Buscar" class="menu-item">
+            Buscar Productos
+        </a>
+        <a asp-controller="Productos" asp-action="InformacionStock" class="menu-item">
+            Información de Stock
+        </a>
+
+        <!-- Reportes -->
+        <span class="menu-description">Reportes</span>
+        <a asp-controller="Dashboard" asp-action="ProductosMasVendidos" class="menu-item">
+            Productos Más Vendidos
+        </a>
+        <a asp-controller="Dashboard" asp-action="VentasPorPeriodo" class="menu-item">
+            Ventas por Período
+        </a>
+        <a asp-controller="Productos" asp-action="GenerarReporteFrecuencia" class="menu-item">
+            Reportes Frecuentes
+        </a>
+       
+        <!-- Ganancias -->
+        <span class="menu-description">Ganancias</span>
+        <a asp-controller="Dashboard" asp-action="Ganancias" class="menu-item">
+            Ganancias por Producto
+        </a>
+        <a asp-controller="Dashboard" asp-action="GananciasMensuales" class="menu-item">
+            Ganancias Mensuales
+        </a>
+        <a asp-controller="GananciasHistoricas" asp-action="Index" class="menu-item">
+            Ganancias Históricas
+        </a>
+        <!-- Funciones adicionales -->
+        <span class="menu-description">Funciones Adicionales</span>
+        <a asp-controller="Dashboard" asp-action="AnalisisRotacion" class="menu-item">
+            Análisis de Rotación
+        </a>
+        <a asp-controller="FlujoCaja" asp-action="Index" class="menu-item">
+            Flujo de Caja
+        </a>
+        <a asp-controller="Dashboard" asp-action="Simulacion" class="menu-item">
+            Simular Escenarios
+        </a>
+        <a asp-controller="Dashboard" asp-action="GenerarCotizacion" class="menu-item">
+            Generar Cotizaciones
+        </a>
+        <a asp-controller="Productos" asp-action="AlertaBajoInventario" class="menu-item">
+            Quiebre De Stock
+        </a>
+        <a asp-controller="Dashboard" asp-action="CalcularUtilidades" class="menu-item">
+            Calcular Utilidades
+        </a>
+        <!-- Navegación General -->
+        <span class="menu-description">Navegación</span>
+        <a href="/Dashboard/Index" class="menu-item">Inicio</a>
+    </div>
+
+    <!-- Botón para cerrar sesión -->
+    <form asp-controller="Auth" asp-action="LogOut" method="post">
+        <button class="btn-logout" type="submit">Cerrar Sesión</button>
+    </form>
+</div>
+
+
+<br />
+<br />
+
+<div class="container text-center">
+    <h1>Viveros</h1>
+
+    <!-- Indicadores principales -->
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card bg-light border-success">
+                <h5 class="text-success">Ventas Anuales:</h5>
+                <p>Meta: @metaVentasTotales.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</p>
+                <h2>@ViewBag.VentasTotales.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</h2>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-light border-success">
+                <h5 class="text-success">Ganancias mensuales:</h5>
+                <p>Meta: @metaGananciasMensuales.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</p>
+                <h2>@ViewBag.GananciasMensuales.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</h2>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-light border-success">
+                <h5 class="text-success">Productos en inventario:</h5>
+                <p>Meta: @metaProductosInventario</p>
+                <h2>@ViewBag.ProductosInventario</h2>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card bg-light border-success">
+                <h5 class="text-success">Proveedores activos:</h5>
+                <p>Meta: @metaProveedoresActivos</p>
+                <h2>@ViewBag.ProveedoresActivos</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Comparaciones y proyecciones -->
+    <div class="row mb-4">
+        <!-- Comparación Año con Año -->
+        <div class="col">
+            <div class="card bg-light border-primary">
+                <h5>Comparación año con año:</h5>
+                <p>Año actual: @ventasAñoActual.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+                <p>Año anterior: @ventasAñoAnterior.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+                <p>
+                    Variación:
+                    <span class="@(estiloVariacionAnual)"> @variacionAnual.ToString("F2")% @(variacionAnual >= 0 ? "↑" : "↓")</span>
+                </p>
+            </div>
+        </div>
+        <!-- Comparación Mes con Mes -->
+        <div class="col">
+            <div class="card bg-light border-primary">
+                <h5>Comparación mes con mes:</h5>
+                <p>Mes actual: @ventasMesActual.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+                <p>Mes anterior: @ventasMesAnterior.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+                <p>
+                    Variación:
+                    <span class="@(estiloVariacionMensual)"> @variacionMensual.ToString("F2")% @(variacionMensual >= 0 ? "↑" : "↓")</span>
+                </p>
+            </div>
+        </div>
+        <!-- Proyecciones Futuras -->
+        <div class="col">
+            <div class="card bg-light border-warning">
+                <h5>Proyección de ingresos futuros:</h5>
+                <p>Promedio mensual: @promedioVentasMensuales.ToString("C", new CultureInfo("es-CL"))</p>
+                <p>Proyección anual (Estimación): @proyeccionIngresosAnuales.ToString("C", new CultureInfo("es-CL"))</p>
+                <p>Incremento esperado (10%): @proyeccionIncremento.ToString("C", new CultureInfo("es-CL"))</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Notificaciones Dinámicas -->
+    @if (alertas.Any())
+    {
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11;">
+            @foreach (var alerta in alertas)
+            {
+                <div class="toast align-items-center text-bg-warning border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            @alerta
+                        </div>
+                        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    @if (ViewBag.Weather != null)
+    {
+        <div class="weather-widget">
+            <h5>Clima en @ViewBag.Weather.Name</h5>
+            <p><span class="temp">@ViewBag.Weather.Main.Temp °C</span></p>
+            <p><strong>Humedad:</strong> @ViewBag.Weather.Main.Humidity%</p>
+            <p class="description">@ViewBag.Weather.Weather[0].Description</p>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(ViewBag.MensajeClima))
+    {
+        <div class="weather-recommendations">
+            <h5>Recomendaciones Basadas en el Clima:</h5>
+            <p>@ViewBag.MensajeClima</p>
+        </div>
+    }
+</div>
+
+<!-- Mostrar Recomendaciones -->
+<h3>Recomendaciones de Productos para @ViewBag.EstacionActual</h3>
+
+<div class="row">
+    @if (ViewBag.Recomendaciones != null && ViewBag.Recomendaciones.Count > 0)
+    {
+        @foreach (var producto in ViewBag.Recomendaciones)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card shadow">
+                    <img src="@producto.Foto" class="card-img-top" alt="@producto.Nombre">
+                    <div class="card-body">
+                        <h5 class="card-title">@producto.Nombre</h5>
+                        <p class="card-text">@producto.Descripcion</p>
+                        <p><strong>Precio:</strong> @producto.Precio.ToString("C", new System.Globalization.CultureInfo("es-CL"))</p>
+                        <p><strong>Proveedor:</strong> @producto.Proveedor.Nombre</p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">
+            <strong>No hay recomendaciones disponibles para esta temporada.</strong>
+        </div>
+    }
+</div>
+
+
+<footer class="text-center mt-5">
+    <p class="text-muted">© 2024 Vivero. Todos los derechos reservados.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toastElements = document.querySelectorAll('.toast');
+        toastElements.forEach(function (toastElement) {
+            const toast = new bootstrap.Toast(toastElement, {
+                autohide: true, // Cierre automático
+                delay: 30000    // 30 segundos
+            });
+            toast.show(); // Muestra la notificación
+        });
+    });
+</script>
+
+
+<!--Menú lateral-->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById('menu');
+        const overlay = document.getElementById('menu-overlay');
+        menu.classList.toggle('open');
+        overlay.classList.toggle('open');
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const recommendations = document.querySelector('.weather-recommendations');
+        if (recommendations) {
+            recommendations.style.opacity = 0;
+            recommendations.style.transition = "opacity 0.5s ease-in-out";
+            setTimeout(() => {
+                recommendations.style.opacity = 1;
+                recommendations.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+        }
+    });
+        function toggleMenu(forceOpen = null) {
+        const menu = document.getElementById("menu");
+        const content = document.querySelector(".content");
+
+        // Alterna el estado del menú
+        if (forceOpen === true || (!menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.add("open");
+            content.style.marginLeft = "220px";
+        } else if (forceOpen === false || (menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.remove("open");
+            content.style.marginLeft = "0";
+        }
+    }
+
+    // Detecta si el cursor se acerca al borde izquierdo
+    document.addEventListener("mousemove", (event) => {
+        if (event.clientX <= 20) {
+            toggleMenu(true); // Abre el menú si el cursor está cerca del borde izquierdo
+        } else if (event.clientX > 240) {
+            toggleMenu(false); // Cierra el menú si el cursor se aleja
+        }
+    });
+</script>
+    

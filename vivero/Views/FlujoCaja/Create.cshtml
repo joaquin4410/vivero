@@ -1,0 +1,72 @@
+﻿@model vivero.Models.FlujoCaja
+
+@{
+    ViewData["Title"] = "Agregar Flujo de Caja";
+}
+
+<link rel="stylesheet" href="~/css/Flujo_Caja/Create.css">
+
+<div class="container">
+    <h2 class="form-title">Agregar Flujo de Caja</h2>
+
+    <form asp-action="Create" method="post" class="custom-form">
+        <div class="form-group">
+            <label asp-for="Fecha" class="form-label"></label>
+            <input asp-for="Fecha" type="date" class="form-control custom-input" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="SaldoInicial" class="form-label"></label>
+            <input asp-for="SaldoInicial" class="form-control custom-input" />
+            <span asp-validation-for="SaldoInicial" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VentasEfectivo" class="form-label"></label>
+            <input asp-for="VentasEfectivo" class="form-control custom-input" />
+            <span asp-validation-for="VentasEfectivo" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VentasCredito" class="form-label"></label>
+            <input asp-for="VentasCredito" class="form-control custom-input" />
+            <span asp-validation-for="VentasCredito" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CobrosActivos" class="form-label"></label>
+            <input asp-for="CobrosActivos" class="form-control custom-input" />
+            <span asp-validation-for="CobrosActivos" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CompraMercancia" class="form-label"></label>
+            <input asp-for="CompraMercancia" class="form-control custom-input" />
+            <span asp-validation-for="CompraMercancia" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PagoNomina" class="form-label"></label>
+            <input asp-for="PagoNomina" class="form-control custom-input" />
+            <span asp-validation-for="PagoNomina" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PagoProveedores" class="form-label"></label>
+            <input asp-for="PagoProveedores" class="form-control custom-input" />
+            <span asp-validation-for="PagoProveedores" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PagoImpuestos" class="form-label"></label>
+            <input asp-for="PagoImpuestos" class="form-control custom-input" />
+            <span asp-validation-for="PagoImpuestos" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrestamosRecibidos" class="form-label"></label>
+            <input asp-for="PrestamosRecibidos" class="form-control custom-input" />
+            <span asp-validation-for="PrestamosRecibidos" class="text-danger"></span>
+        </div>
+        <div class="button-group">
+            <button type="submit" class="btn btn-success custom-btn">Guardar</button>
+            <a asp-action="Index" class="btn btn-danger custom-btn">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

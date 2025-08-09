@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Acceso Denegado";
+}
+<link rel="stylesheet" href="~/css/Denegado.css" asp-append-version="true" />
+<div class="container text-center mt-5">
+    <div class="animation-container">
+        <h1 class="text-danger animated-title">⛔ Acceso Denegado</h1>
+        <p class="mt-3 text-secondary">No tienes los permisos necesarios para acceder a esta página.</p>
+        <div class="icon-animation mt-4">
+            <img src="https://via.placeholder.com/300x200?text=Acceso+Denegado" alt="Acceso Denegado" class="img-fluid rounded shadow" />
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="@ViewBag.ReturnUrl" class="btn btn-primary btn-lg shadow-sm">🔙 Volver al Catálogo de Productos</a>
+    </div>
+</div>

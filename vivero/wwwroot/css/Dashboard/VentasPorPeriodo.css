@@ -1,0 +1,115 @@
+﻿/* Fuente e importaciones */
+@import url('https://fonts.googleapis.com/css2?family=Grand+Cru+S&family=Antic+Didone&family=Open+Sans:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f8f9fa;
+    color: #000;
+}
+
+/* Contenedor principal */
+.sales-period-container {
+    width: 85%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+.sales-period-heading {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #000;
+    font-weight: 600;
+    font-family: 'Grand Cru S', serif;
+}
+
+/* Contenedor de tabla */
+.table-container {
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+/* Tabla */
+.sales-period-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
+    font-family: 'Antic Didone', serif;
+    background-color: #fafbf5;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .sales-period-table thead {
+        background-color: #d9d9d9;
+    }
+
+    .sales-period-table th,
+    .sales-period-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sales-period-table th {
+        font-weight: 600;
+        color: #000;
+        font-family: 'Montserrat Light', sans-serif;
+    }
+
+    .sales-period-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .sales-period-table tbody tr:hover {
+        background-color: #e0f7fa;
+    }
+
+/* Contenedor del gráfico */
+.chart-container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 800px;
+}
+
+    .chart-container canvas {
+        width: 100%;
+        max-height: 400px;
+    }
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .sales-period-heading {
+        font-size: 22px;
+    }
+
+    .sales-period-table th,
+    .sales-period-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sales-period-heading {
+        font-size: 20px;
+    }
+
+    .sales-period-table th,
+    .sales-period-table td {
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,15 @@
+﻿@model vivero.Models.Producto
+<link rel="stylesheet" href="/css/Productos/Scan.css">
+
+<div class="product-container">
+    <div class="product-header">
+        <h1>@Model.Nombre</h1>
+    </div>
+
+    <div class="product-content">
+        <img src="@Model.Foto" alt="@Model.Nombre" class="product-image" />
+        <div class="product-details">
+            <p><strong>Cuidados:</strong> @ViewBag.Cuidados</p>
+        </div>
+    </div>
+</div>

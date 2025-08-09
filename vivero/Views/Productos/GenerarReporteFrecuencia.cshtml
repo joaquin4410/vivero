@@ -1,0 +1,183 @@
+﻿@model IEnumerable<dynamic>
+
+<link rel="stylesheet" href="/css/Productos/gene.css">
+<link rel="stylesheet" href="~/css/Menu.css" asp-append-version="true" />
+
+<!-- Menú lateral -->
+<div class="menu" id="menu">
+    <!-- Botón para cerrar o abrir el menú -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <!-- Opciones del menú lateral -->
+    <div class="menu-items">
+        <!-- Gestión de Usuarios -->
+        <span class="menu-description">Gestión de Usuarios</span>
+        <a asp-controller="Usuarios" asp-action="Index" class="menu-item">
+            Administrar Usuarios
+        </a>
+        <a asp-controller="Historial" asp-action="Index" class="menu-item">
+            Historial de Actividades
+        </a>
+
+        <!-- Gestión de Proveedores -->
+        <span class="menu-description">Gestión de Proveedores</span>
+        <a asp-controller="Proveedores" asp-action="Index" class="menu-item">
+            Gestión de Proveedores
+        </a>
+
+        <!-- Gestión de Productos -->
+        <span class="menu-description">Gestión de Productos</span>
+        <a asp-controller="Productos" asp-action="Index" class="menu-item">
+            Ver Productos
+        </a>
+        <a asp-controller="Productos" asp-action="Promociones" class="menu-item">
+            Gestión de Promociones
+        </a>
+        <a asp-controller="Productos" asp-action="HistorialMovimientos" class="menu-item">
+            Gestión de Stock
+        </a>
+        <a asp-controller="Productos" asp-action="Catalogo" class="menu-item">
+            Catálogo en Línea
+        </a>
+        <a asp-controller="Productos" asp-action="Buscar" class="menu-item">
+            Buscar Productos
+        </a>
+        <a asp-controller="Productos" asp-action="InformacionStock" class="menu-item">
+            Información de Stock
+        </a>
+
+        <!-- Reportes -->
+        <span class="menu-description">Reportes</span>
+        <a asp-controller="Dashboard" asp-action="ProductosMasVendidos" class="menu-item">
+            Productos Más Vendidos
+        </a>
+        <a asp-controller="Dashboard" asp-action="VentasPorPeriodo" class="menu-item">
+            Ventas por Período
+        </a>
+        <a asp-controller="Productos" asp-action="GenerarReporteFrecuencia" class="menu-item">
+            Reportes Frecuentes
+        </a>
+
+        <!-- Ganancias -->
+        <span class="menu-description">Ganancias</span>
+        <a asp-controller="Dashboard" asp-action="Ganancias" class="menu-item">
+            Ganancias por Producto
+        </a>
+        <a asp-controller="Dashboard" asp-action="GananciasMensuales" class="menu-item">
+            Ganancias Mensuales
+        </a>
+        <a asp-controller="GananciasHistoricas" asp-action="Index" class="menu-item">
+            Ganancias Históricas
+        </a>
+
+        <!-- Funciones adicionales -->
+        <span class="menu-description">Funciones Adicionales</span>
+        <a asp-controller="Dashboard" asp-action="AnalisisRotacion" class="menu-item">
+            Análisis de Rotación
+        </a>
+        <a asp-controller="FlujoCaja" asp-action="Index" class="menu-item">
+            Flujo de Caja
+        </a>
+        <a asp-controller="Dashboard" asp-action="Simulacion" class="menu-item">
+            Simular Escenarios
+        </a>
+        <a asp-controller="Dashboard" asp-action="GenerarCotizacion" class="menu-item">
+            Generar Cotizaciones
+        </a>
+        <a asp-controller="Productos" asp-action="AlertaBajoInventario" class="menu-item">
+            Quiebre De Stock
+        </a>
+        <a asp-controller="Dashboard" asp-action="CalcularUtilidades" class="menu-item">
+            Calcular Utilidades
+        </a>
+
+        <!-- Navegación General -->
+        <span class="menu-description">Navegación</span>
+        <a href="/Dashboard/Index" class="menu-item">Inicio</a>
+    </div>
+
+    <!-- Botón para cerrar sesión -->
+    <form asp-controller="Auth" asp-action="LogOut" method="post">
+        <button class="btn-logout" type="submit">Cerrar Sesión</button>
+    </form>
+</div>
+
+<div class="report-container">
+    <div class="report-header">
+        <h1>Reportes frecuentes (@ViewBag.Frecuencia)</h1>
+        <p>Genera reportes según la frecuencia seleccionada para analizar el rendimiento de ventas.</p>
+    </div>
+
+    <!-- Formulario para seleccionar la frecuencia -->
+    <form asp-controller="Productos" asp-action="GenerarReporteFrecuencia" method="get" class="frequency-form">
+        <div class="form-group">
+            <label for="frecuencia" class="form-label">Selecciona la frecuencia:</label>
+            <select id="frecuencia" name="frecuencia" class="form-control" required>
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option value="diario">Diario</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensual">Mensual</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Generar reporte</button>
+    </form>
+
+    <!-- Mostrar mensajes de error -->
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">
+            @ViewBag.Error
+        </div>
+    }
+    else
+    {
+        <!-- Tabla de resultados -->
+        <div class="table-container">
+            <table class="report-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Total ventas</th>
+                        <th>Cantidad de productos vendidos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reporte in Model)
+                    {
+                        <tr>
+                            <td>@reporte.Fecha.ToShortDateString()</td>
+                            <td>@reporte.TotalVentas.ToString("C0", new System.Globalization.CultureInfo("es-CL"))</td>
+                            <td>@reporte.CantidadProductos</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+<!--Menú lateral-->
+<script>
+    function toggleMenu(forceOpen = null) {
+        const menu = document.getElementById("menu");
+        const content = document.querySelector(".content");
+
+        // Alterna el estado del menú
+        if (forceOpen === true || (!menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.add("open");
+            content.style.marginLeft = "220px";
+        } else if (forceOpen === false || (menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.remove("open");
+            content.style.marginLeft = "0";
+        }
+    }
+
+    // Detecta si el cursor se acerca al borde izquierdo
+    document.addEventListener("mousemove", (event) => {
+        if (event.clientX <= 20) {
+            toggleMenu(true); // Abre el menú si el cursor está cerca del borde izquierdo
+        } else if (event.clientX > 240) {
+            toggleMenu(false); // Cierra el menú si el cursor se aleja
+        }
+    });
+</script>

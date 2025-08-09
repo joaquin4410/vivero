@@ -1,0 +1,101 @@
+﻿/* General Styles */
+body {
+    font-family: 'Grand Cru S', serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+/* Title Styles */
+h1 {
+    font-family: 'Grand Cru S', serif;
+    text-align: center;
+    margin: 40px 0;
+}
+
+/* Form Container */
+.form-container {
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fafbf5;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-family: 'Montserrat Light', sans-serif;
+    font-size: 14px;
+    color: #000;
+}
+
+input[type="text"] {
+    font-family: 'Antic Didone', serif;
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    pointer-events: none; /* Campos de solo lectura */
+}
+
+/* Buttons */
+.btn-vender {
+    background-color: #90ee90;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+}
+
+    .btn-vender:hover {
+        background-color: #7ed37e;
+    }
+
+.btn-volver {
+    background-color: #cb4154;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+}
+
+    .btn-volver:hover {
+        background-color: #b83849;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+    }
+
+    label {
+        font-size: 12px;
+    }
+
+    input[type="text"] {
+        font-size: 12px;
+    }
+
+    .btn-vender,
+    .btn-volver {
+        font-size: 12px;
+    }
+}

@@ -1,0 +1,103 @@
+﻿@model vivero.Models.Producto
+
+<link rel="stylesheet" href="/css/Productos/Create.css">
+
+<h1>Crear Producto</h1>
+
+<div class="form-container">
+    <form asp-action="Create"
+          method="post"
+          enctype="multipart/form-data"
+          onsubmit="return validateInput()">
+
+        <div>
+            <label>Nombre</label>
+            <input asp-for="Nombre" />
+        </div>
+
+        <div>
+            <label>Descripción</label>
+            <input asp-for="Descripcion" />
+        </div>
+
+        <div>
+            <label>Precio</label>
+            <input asp-for="Precio" asp-format="{0:C}"
+                   type="number"
+                   value="@Model?.Precio.ToString("C", System.Globalization.CultureInfo.CreateSpecificCulture("es-CL"))"
+                   id="PrecioInput" />
+            <span id="errorPrecio" style="color: red; display: none;">
+                Por favor, ingrese un precio válido.
+            </span>
+        </div>
+
+        <div>
+            <label>Cantidad</label>
+            <input asp-for="Cantidad" type="number" id="CantidadInput" />
+            <span id="errorCantidad" style="color: red; display: none;">
+                Por favor, ingrese un número válido.
+            </span>
+        </div>
+
+        <div>
+            <label>Foto</label>
+            <input asp-for="Foto" type="file" />
+        </div>
+
+        <div>
+            <label>Estado</label>
+            <input asp-for="Estado" />
+        </div>
+
+        <div class="form-group">
+            <label for="Categoria" class="form-label">Categoría</label>
+            <select id="Categoria"
+                    name="Categoria"
+                    class="form-control">
+                <option value="Árboles">Árboles</option>
+                <option value="Flores">Flores</option>
+                <option value="Tierra">Tierra</option>
+                <option value="Macetas">Macetas</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Proveedor</label>
+            <select asp-for="ProveedorId"
+                    asp-items="@(new SelectList(ViewBag.Proveedores, "ProveedorId", "Nombre"))">
+            </select>
+        </div>
+
+        <div class="button-container form-actions">
+            <button type="submit" class="btn-guardar">Guardar</button>
+            <a asp-action="Index" class="btn-volver">Volver</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function validateInput() {
+        const cantidadInput = document.getElementById('CantidadInput').value;
+        const precioInput = document.getElementById('PrecioInput').value;
+        const errorCantidad = document.getElementById('errorCantidad');
+        const errorPrecio = document.getElementById('errorPrecio');
+
+        let isValid = true;
+
+        if (isNaN(cantidadInput) || cantidadInput.trim() === "" || cantidadInput <= 0) {
+            errorCantidad.style.display = 'inline';
+            isValid = false;
+        } else {
+            errorCantidad.style.display = 'none';
+        }
+
+        if (isNaN(precioInput) || precioInput.trim() === "" || precioInput <= 0) {
+            errorPrecio.style.display = 'inline';
+            isValid = false;
+        } else {
+            errorPrecio.style.display = 'none';
+        }
+
+        return isValid;
+    }
+</script>

@@ -1,0 +1,183 @@
+﻿@{
+    ViewBag.Title = "Cálculo de Utilidades";
+    var culturaChilena = new System.Globalization.CultureInfo("es-CL");
+}
+<link rel="stylesheet" href="/css/Auth/utili.css">
+<link rel="stylesheet" href="~/css/Menu.css" asp-append-version="true" />
+
+<!-- Menú lateral -->
+<div class="menu" id="menu">
+    <!-- Botón para cerrar o abrir el menú -->
+    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+    <!-- Opciones del menú lateral -->
+    <div class="menu-items">
+        <!-- Gestión de Usuarios -->
+        <span class="menu-description">Gestión de Usuarios</span>
+        <a asp-controller="Usuarios" asp-action="Index" class="menu-item">
+            Administrar Usuarios
+        </a>
+        <a asp-controller="Historial" asp-action="Index" class="menu-item">
+            Historial de Actividades
+        </a>
+
+        <!-- Gestión de Proveedores -->
+        <span class="menu-description">Gestión de Proveedores</span>
+        <a asp-controller="Proveedores" asp-action="Index" class="menu-item">
+            Gestión de Proveedores
+        </a>
+
+        <!-- Gestión de Productos -->
+        <span class="menu-description">Gestión de Productos</span>
+        <a asp-controller="Productos" asp-action="Index" class="menu-item">
+            Ver Productos
+        </a>
+        <a asp-controller="Productos" asp-action="Promociones" class="menu-item">
+            Gestión de Promociones
+        </a>
+        <a asp-controller="Productos" asp-action="HistorialMovimientos" class="menu-item">
+            Gestión de Stock
+        </a>
+        <a asp-controller="Productos" asp-action="Catalogo" class="menu-item">
+            Catálogo en Línea
+        </a>
+        <a asp-controller="Productos" asp-action="Buscar" class="menu-item">
+            Buscar Productos
+        </a>
+        <a asp-controller="Productos" asp-action="InformacionStock" class="menu-item">
+            Información de Stock
+        </a>
+
+        <!-- Reportes -->
+        <span class="menu-description">Reportes</span>
+        <a asp-controller="Dashboard" asp-action="ProductosMasVendidos" class="menu-item">
+            Productos Más Vendidos
+        </a>
+        <a asp-controller="Dashboard" asp-action="VentasPorPeriodo" class="menu-item">
+            Ventas por Período
+        </a>
+        <a asp-controller="Productos" asp-action="GenerarReporteFrecuencia" class="menu-item">
+            Reportes Frecuentes
+        </a>
+
+        <!-- Ganancias -->
+        <span class="menu-description">Ganancias</span>
+        <a asp-controller="Dashboard" asp-action="Ganancias" class="menu-item">
+            Ganancias por Producto
+        </a>
+        <a asp-controller="Dashboard" asp-action="GananciasMensuales" class="menu-item">
+            Ganancias Mensuales
+        </a>
+        <a asp-controller="GananciasHistoricas" asp-action="Index" class="menu-item">
+            Ganancias Históricas
+        </a>
+
+        <!-- Funciones adicionales -->
+        <span class="menu-description">Funciones Adicionales</span>
+        <a asp-controller="Dashboard" asp-action="AnalisisRotacion" class="menu-item">
+            Análisis de Rotación
+        </a>
+        <a asp-controller="FlujoCaja" asp-action="Index" class="menu-item">
+            Flujo de Caja
+        </a>
+        <a asp-controller="Dashboard" asp-action="Simulacion" class="menu-item">
+            Simular Escenarios
+        </a>
+        <a asp-controller="Dashboard" asp-action="GenerarCotizacion" class="menu-item">
+            Generar Cotizaciones
+        </a>
+        <a asp-controller="Productos" asp-action="AlertaBajoInventario" class="menu-item">
+            Quiebre De Stock
+        </a>
+        <a asp-controller="Dashboard" asp-action="CalcularUtilidades" class="menu-item">
+            Calcular Utilidades
+        </a>
+
+        <!-- Navegación General -->
+        <span class="menu-description">Navegación</span>
+        <a href="/Dashboard/Index" class="menu-item">Inicio</a>
+    </div>
+
+    <!-- Botón para cerrar sesión -->
+    <form asp-controller="Auth" asp-action="LogOut" method="post">
+        <button class="btn-logout" type="submit">Cerrar Sesión</button>
+    </form>
+</div>
+<div class="utility-container">
+    <div class="utility-header">
+        <h2>Cálculo de Utilidades</h2>
+        <p>Selecciona un producto y calcula sus utilidades detalladas.</p>
+    </div>
+
+    <!-- Mensaje de error si no hay productos -->
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <!-- Formulario de selección de producto -->
+    @if (ViewBag.Productos != null && ViewBag.Productos.Count > 0)
+    {
+        <form asp-controller="Dashboard" asp-action="CalcularUtilidades" method="get" class="utility-form">
+            <div class="form-group">
+                <label for="productoId" class="form-label">Selecciona un producto:</label>
+                <select id="productoId" name="productoId" class="form-control" required>
+                    <option value="">-- Selecciona un producto --</option>
+                    @foreach (var producto in ViewBag.Productos)
+                    {
+                        <option value="@producto.ProductoId">@producto.Nombre</option>
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Calcular</button>
+        </form>
+    }
+    else
+    {
+        <div class="alert alert-warning">No hay productos disponibles para calcular las utilidades.</div>
+    }
+
+    <!-- Resultados -->
+    @if (ViewBag.Producto != null)
+    {
+        <div class="utility-results">
+            <h3>Resultados para el producto: @ViewBag.Producto.Nombre</h3>
+            <div class="results-details">
+                <p><strong>Precio de Venta (Con IVA):</strong> @(ViewBag.PrecioConIVA.ToString("C", culturaChilena))</p>
+                <p><strong>Precio Sin IVA:</strong> @(ViewBag.PrecioSinIVA.ToString("C", culturaChilena))</p>
+                <p><strong>IVA (19%):</strong> @(ViewBag.MontoIVA.ToString("C", culturaChilena))</p>
+                <p><strong>Costos Adicionales:</strong> @(ViewBag.CostosAdicionales.ToString("C", culturaChilena))</p>
+                <p><strong>Utilidad Bruta:</strong> @(ViewBag.UtilidadBruta.ToString("C", culturaChilena))</p>
+                <p><strong>Impuesto a las Ganancias (25%):</strong> @(ViewBag.ImpuestoGanancias.ToString("C", culturaChilena))</p>
+                <p><strong>Utilidad Neta:</strong> @(ViewBag.UtilidadNeta.ToString("C", culturaChilena))</p>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!--Menú lateral-->
+<script>
+    function toggleMenu(forceOpen = null) {
+        const menu = document.getElementById("menu");
+        const content = document.querySelector(".content");
+
+        // Alterna el estado del menú
+        if (forceOpen === true || (!menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.add("open");
+            content.style.marginLeft = "220px";
+        } else if (forceOpen === false || (menu.classList.contains("open") && forceOpen === null)) {
+            menu.classList.remove("open");
+            content.style.marginLeft = "0";
+        }
+    }
+
+    // Detecta si el cursor se acerca al borde izquierdo
+    document.addEventListener("mousemove", (event) => {
+        if (event.clientX <= 20) {
+            toggleMenu(true); // Abre el menú si el cursor está cerca del borde izquierdo
+        } else if (event.clientX > 240) {
+            toggleMenu(false); // Cierra el menú si el cursor se aleja
+        }
+    });
+</script>

@@ -1,0 +1,96 @@
+﻿@{
+    ViewData["Title"] = "Crear Cuenta";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crear Cuenta</title>
+   <link rel="stylesheet" href="~/css/Auth/Client.css" asp-append-version="true" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-card">
+            <h1 class="text-center"><i class="fas fa-user-plus"></i> Crear Cuenta</h1>
+
+            <!-- Mostrar mensajes de error si los hay -->
+            @if (!ViewData.ModelState.IsValid || ViewData["ErrorMessage"] != null)
+            {
+                <div class="error-message">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                    @if (ViewData["ErrorMessage"] != null)
+                    {
+                        <p>@ViewData["ErrorMessage"]</p>
+                    }
+                </div>
+            }
+
+            <form asp-action="RegisterClient" asp-controller="Auth" method="post">
+                <div class="form-group">
+                    <label for="Rut"><i class="fas fa-id-card"></i> Rut:</label>
+                    <input type="text" id="Rut" name="Rut" placeholder="Ingrese su Rut" required />
+                </div>
+                <div class="form-group">
+                    <label for="Nombre"><i class="fas fa-user"></i> Nombre:</label>
+                    <input type="text" id="Nombre" name="Nombre" placeholder="Ingrese su nombre completo" required />
+                </div>
+                <div class="form-group">
+                    <label for="Email"><i class="fas fa-envelope"></i> Correo Electrónico:</label>
+                    <input type="email" id="Email" name="Email" placeholder="Ingrese su correo electrónico" required />
+                </div>
+                <div class="form-group">
+                    <label for="Password"><i class="fas fa-lock"></i> Contraseña:</label>
+                    <input type="password" id="Password" name="Password" placeholder="Cree una contraseña segura" required />
+                    <small id="password-strength"></small>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Registrar</button>
+                    <a href="@Url.Action("Login", "Auth")" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver al Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("Password").addEventListener("input", function () {
+            const password = this.value;
+            let strength = "Débil";
+            let requirementsMet = 0;
+
+            // Validación de longitud
+            if (password.length >= 8) requirementsMet++;
+            // Validación de mayúsculas
+            if (/[A-Z]/.test(password)) requirementsMet++;
+            // Validación de minúsculas
+            if (/[a-z]/.test(password)) requirementsMet++;
+            // Validación de números
+            if (/[0-9]/.test(password)) requirementsMet++;
+            // Validación de caracteres especiales
+            if (/[^A-Za-z0-9]/.test(password)) requirementsMet++;
+
+            // Evaluar fuerza
+            switch (requirementsMet) {
+                case 5:
+                    strength = "Muy fuerte";
+                    break;
+                case 4:
+                    strength = "Fuerte";
+                    break;
+                case 3:
+                    strength = "Moderada";
+                    break;
+                default:
+                    strength = "Débil";
+            }
+
+            document.getElementById("password-strength").textContent = `Fuerza de la contraseña: ${strength}`;
+        });
+    </script>
+</body>
+</html>

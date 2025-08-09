@@ -1,0 +1,16 @@
+﻿@model vivero.Models.GananciaHistorica
+
+<div class="container mt-5">
+    <h2>Detalle de Ganancia Histórica</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Producto</dt>
+        <dd class="col-sm-9">@Model.ProductoNombre</dd>
+
+        <dt class="col-sm-3">Total Ganancia</dt>
+        <dd class="col-sm-9">@Model.TotalGanancia.ToString("C", new System.Globalization.CultureInfo("es-CL"))</dd>
+
+        <dt class="col-sm-3">Fecha de Registro</dt>
+        <dd class="col-sm-9">@Model.FechaRegistro.ToString("g")</dd>
+    </dl>
+    <a asp-action="Index" class="btn btn-primary">Volver a la Lista</a>
+</div>

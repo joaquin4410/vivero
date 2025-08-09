@@ -1,0 +1,140 @@
+﻿/* General Styles */
+body {
+    font-family: 'Grand Cru S', serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+/* Title Styles */
+h1 {
+    font-family: 'Grand Cru S', serif;
+    text-align: center;
+    margin: 40px 0 20px; /* Mayor espacio superior */
+}
+
+/* Container Styles */
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Crear Trabajador y Crear Usuario */
+.btn-crear {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #609faf;
+    border: 2px solid #3f6f7b;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+    .btn-crear:hover {
+        background-color: #3f6f7b;
+    }
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    font-family: 'Antic Didone', serif;
+    background-color: #fafbf5;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+th {
+    background-color: #d9d9d9;
+    font-family: 'Montserrat Light', sans-serif;
+    font-weight: normal;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+/* Action Buttons */
+.btn-editar {
+    background-color: #90ee90;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+    .btn-editar:hover {
+        background-color: #7ed37e;
+    }
+
+.btn-eliminar {
+    background-color: #cb4154;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .btn-eliminar:hover {
+        background-color: #b83849;
+    }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .btn-crear {
+        font-size: 12px;
+    }
+
+    .btn-editar,
+    .btn-eliminar {
+        font-size: 12px;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
+/* Botón Crear */
+.btn-crear:hover {
+    background-color: #3f6f7b;
+    color: #ffffff; 
+}
+
+/* Botón Editar */
+.btn-editar:hover {
+    background-color: #7ed37e;
+    color: #ffffff; 
+}
+
+/* Botón Eliminar */
+.btn-eliminar:hover {
+    background-color: #b83849;
+    color: #ffffff; 
+}

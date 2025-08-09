@@ -1,0 +1,62 @@
+﻿body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+}
+
+/* Title */
+.product-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    color: #4CAF50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Product Image */
+.product-image {
+    border-radius: 10px;
+    max-height: 400px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Product Details */
+.product-details p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.product-details strong {
+    color: #4CAF50;
+}
+
+/* Button Volver */
+.btn-volver {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-volver:hover {
+        background-color: #45a049;
+        color: #ffffff;
+    }

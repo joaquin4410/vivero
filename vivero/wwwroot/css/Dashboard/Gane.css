@@ -1,0 +1,103 @@
+﻿/* Fuente general */
+@import url('https://fonts.googleapis.com/css2?family=Grand+Cru+S&family=Antic+Didone&family=Open+Sans:wght@400;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: #f8f9fa;
+    color: #000;
+}
+
+/* Contenedor principal */
+.bestseller-container {
+    width: 85%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
+.bestseller-heading {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: #000;
+    font-weight: 600;
+    font-family: 'Grand Cru S', serif;
+}
+
+/* Sección de la tabla */
+.table-container {
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.bestseller-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
+    font-family: 'Antic Didone', serif;
+    background-color: #fafbf5;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .bestseller-table thead {
+        background-color: #d9d9d9;
+    }
+
+    .bestseller-table th,
+    .bestseller-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .bestseller-table th {
+        font-weight: 600;
+        color: #000;
+        font-family: 'Montserrat Light', sans-serif;
+    }
+
+    .bestseller-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .bestseller-table tbody tr:hover {
+        background-color: #e0f7fa;
+    }
+
+/* Sección del gráfico */
+.chart-container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    max-width: 800px;
+}
+
+    .chart-container canvas {
+        width: 100%;
+        max-height: 400px;
+    }
+
+/* Responsivo */
+@media (max-width: 768px) {
+    .bestseller-heading {
+        font-size: 22px;
+    }
+
+    .bestseller-table th,
+    .bestseller-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
